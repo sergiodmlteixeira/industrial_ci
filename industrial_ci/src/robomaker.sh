@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function ici_setup_aws {
     ici_quiet ici_aws_cli_install
     ici_aws_cli_configuration
