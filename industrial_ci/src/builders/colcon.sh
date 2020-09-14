@@ -64,3 +64,13 @@ function builder_test_results {
     local ws=$1; shift
     ici_exec_in_workspace "$extend" "$ws" colcon test-result --verbose
 }
+
+function bundle_setup {
+    wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+    source /opt/ros/melodic/setup.bash
+    ici_asroot pip3 install colcon-ros-bundle
+}
+
+function bundle_workspace {
+    colcon bundle
+}
