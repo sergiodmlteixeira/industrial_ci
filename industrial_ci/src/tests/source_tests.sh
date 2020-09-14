@@ -105,6 +105,7 @@ function run_source_tests {
     upstream_ws=~/upstream_ws
     target_ws=~/target_ws
     downstream_ws=~/downstream_ws
+    bundle_ws=~/bundle_ws
 
     if [ "$CCACHE_DIR" ]; then
         ici_run "setup_ccache" ici_apt_install ccache

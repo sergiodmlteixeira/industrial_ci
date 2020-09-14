@@ -72,5 +72,6 @@ function bundle_setup {
 }
 
 function bundle_workspace {
-    colcon bundle
+    local ws=$1; shift
+    ici_exec_in_workspace "$extend" "$ws" colcon bundle
 }
