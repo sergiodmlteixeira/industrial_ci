@@ -5,7 +5,7 @@ function ici_setup_aws {
     ici_aws_cli_configuration
 }
 
-function ici_aws_cli_install{
+function ici_aws_cli_install {
     cd ~ && mkdir .temp_aws && cd .temp_aws
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
