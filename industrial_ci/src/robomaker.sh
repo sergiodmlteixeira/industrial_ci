@@ -32,8 +32,9 @@ function ici_upload_bundle {
 }
 
 function ici_test_simulation {
+    cd ~/bundle_ws
     echo "Starting Simulation..."
-    aws lambda invoke --cli-binary-format raw-in-base64-out --function-name $AWS_SIM_FUNCTION --payload '{"package": "simulated_omni_drive_skill_server", "launch_file": "run_sim_test.launch"}' response.json
+    aws lambda invoke --cli-binary-format raw-in-base64-out --function-name $AWS_SIM_FUNCTION --payload '{"package": "simulated_omni_drive_skill_server", "launch_file": "run_sim_test.launch"}' -
     sleep 10
     temp=$(aws stepfunctions list-executions  --state-machine-arn=$AWS_SF_ARN --max-items=1 --query executions[0].executionArn)
     temp="${temp%\"}"
