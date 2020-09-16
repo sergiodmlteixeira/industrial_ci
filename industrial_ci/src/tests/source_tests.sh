@@ -101,6 +101,10 @@ function run_source_tests {
     # shellcheck disable=SC1090
     source "${ICI_SRC_PATH}/builders/$BUILDER.sh" || ici_error "Builder '$BUILDER' not supported"
 
+    if [ "$TEST_WITH_ROBOMAKER" == "true" ] && [ "$BUILDER" != "colcon" ]; then
+        source "${ICI_SRC_PATH}/builders/colcon.sh"
+    fi
+
     ici_require_run_in_docker # this script must be run in docker
     upstream_ws=~/upstream_ws
     target_ws=~/target_ws
