@@ -32,27 +32,44 @@ function ici_upload_bundle {
 }
 
 function ici_test_simulation {
-    cd ~/bundle_ws
-    echo "Starting Simulation..."
-    aws lambda invoke --cli-binary-format raw-in-base64-out --function-name $AWS_SIM_FUNCTION --payload '{"package": "simulated_omni_drive_skill_server", "launch_file": "run_sim_test.launch"}' -
-    sleep 10
-    temp=$(aws stepfunctions list-executions  --state-machine-arn=$AWS_SF_ARN --max-items=1 --query executions[0].executionArn)
-    temp="${temp%\"}"
-    SF_EXECUTION="${temp#\"}"
-    echo "Simulation is running on AWS Robomaker..."
-    while true
-    do
-        temp=$(aws stepfunctions describe-execution --execution-arn=$SF_EXECUTION --query "status")
-        temp="${temp%\"}"
-        STATUS="${temp#\"}"
-        if [[ "$STATUS" == "SUCCEEDED" ]]; then
-            echo "Simulation finished successfully"
-            break
-        elif [[ "$STATUS" == "RUNNING" ]]; then
-            sleep 10
-        else
-            echo "Simulation failed"
-            exit 1
-        fi
-    done
+    # Define needed parameters
+    args=( --max-job-duration-in-seconds $MAX_JOB_DURATION --iam-role $IAM_ROLE )
+
+    # Check and define optional parameters
+    if [ ! -z "$CLIENT_REQUEST_TOKEN" ]; then
+    	args+=( --client-request-token $CLIENT_REQUEST_TOKEN )
+    fi
+    if [ ! -z "$OUTPUT_LOCATION" ]; then
+    	args+=( --output-location $OUTPUT_LOCATION )
+    fi
+    if [ ! -z "$LOGGING_CONFIG" ]; then
+    	args+=( --logging-config $LOGGING_CONFIG )
+    fi
+    if [ ! -z "$FAILURE_BEHAVIOR" ]; then
+    	args+=( --failure-behavior $FAILURE_BEHAVIOR )
+    fi
+    if [ ! -z "$ROBOT_APPLICATIONS" ]; then
+    	args+=( --robot-applications $ROBOT_APPLICATIONS )
+    fi
+    if [ ! -z "$SIMULATION_APPLICATIONS" ]; then
+    	args+=( --simulation-applications $SIMULATION_APPLICATIONS )
+    fi
+    if [ ! -z "$DATA_SOURCES" ]; then
+    	args+=( --data-sources $DATA_SOURCES )
+    fi
+    if [ ! -z "$TAGS" ]; then
+    	args+=( --tags $TAGS )
+    fi
+    if [ ! -z "$VPC_CONFIG" ]; then
+    	args+=( --vpc-config $VPC_CONFIG )
+    fi
+    if [ ! -z "$COMPUTE" ]; then
+    	args+=( --compute $COMPUTE )
+    fi
+
+    # Run simulation job
+    aws robomaker create-simulation-job "${args[@]}"
+    
+    # Run analysis script
+    ./$ANALYSIS_SCRIPT
 }

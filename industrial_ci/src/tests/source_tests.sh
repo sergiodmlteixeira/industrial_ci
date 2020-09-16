@@ -162,7 +162,6 @@ function run_source_tests {
 
     if [ "$TEST_WITH_ROBOMAKER" == "true" ]; then
         ici_run "setup_aws" ici_setup_aws
-        source opt/ros/$ROS_DISTRO/setup.bash
         ici_with_ws "$bundle_ws" ici_build_workspace "bundle" "$extend" "$bundle_ws"
         ici_run "bundle_workspace" ici_with_ws "$bundle_ws" bundle_workspace "$bundle_ws"
         ici_run "upload_bundle" ici_upload_bundle
