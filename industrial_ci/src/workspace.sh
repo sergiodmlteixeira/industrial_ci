@@ -311,7 +311,7 @@ function ici_test_workspace {
 }
 
 function ici_import_local_workspaces {
-    local workspaces=${2:3}; shift
+    local workspaces=${2:3}
 
     IFS="+" read -r -a parts <<< "$workspaces"
     ls ~
