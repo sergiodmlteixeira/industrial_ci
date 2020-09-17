@@ -318,7 +318,6 @@ function ici_import_local_workspaces {
     for ws in "${ADDR[@]}"; do
         if [ -d "$ws/src" ]; then
             cp -R "$ws/src/." "$1"
-        fi
         else
             ici_error "'$ws' is not a valid workspace"
         fi
