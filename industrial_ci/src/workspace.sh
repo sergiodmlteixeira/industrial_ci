@@ -315,7 +315,7 @@ function ici_import_local_workspaces {
 
     IFS="+" read -r -a parts <<< "$workspaces"
 
-    for ws in "${ADDR[@]}"; do
+    for ws in "${parts[@]}"; do
         if [ -d "$ws/src" ]; then
             cp -R "$ws/src/." "$1"
         else
