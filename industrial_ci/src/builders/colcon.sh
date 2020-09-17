@@ -67,7 +67,7 @@ function builder_test_results {
 
 function bundle_setup {
     wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-    source /opt/ros/melodic/setup.bash
+    source /opt/ros/$BUILDER/setup.bash
     ici_asroot pip3 install colcon-ros-bundle
 }
 
