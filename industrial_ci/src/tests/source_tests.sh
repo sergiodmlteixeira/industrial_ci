@@ -164,7 +164,7 @@ function run_source_tests {
         ici_run "setup_aws" ici_setup_aws
         ici_with_ws "$bundle_ws" ici_build_workspace "bundle" "$extend" "$bundle_ws"
         ici_run "bundle_workspace" ici_with_ws "$bundle_ws" bundle_workspace "$bundle_ws"
-        ici_run "upload_bundle" ici_upload_bundle
+        ici_run "upload_bundle" ici_quiet ici_upload_bundle
         ici_run "run_robomaker_tests" ici_quiet ici_test_simulation
     fi
 }

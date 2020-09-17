@@ -28,7 +28,6 @@ function ici_setup_bundle_workspace {
 
 function ici_upload_bundle {
     ici_with_ws "$bundle_ws" ici_exec_in_workspace "$extend" "$bundle_ws" aws s3 cp bundle/output.tar $AWS_BUNDLE_BUCKET --no-progress
-    export TERM=xterm
 }
 
 function ici_test_simulation {
