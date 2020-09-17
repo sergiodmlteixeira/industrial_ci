@@ -211,6 +211,9 @@ function ici_prepare_sourcespace {
         "")
             ici_error "source is empty string"
             ;;
+        ws:*)
+            ici_import_local_workspaces "$sourcespace" "$source"
+            ;;
         *)
             if [ -d "$basepath/$source" ]; then
                 echo "Copying '$source'"
@@ -305,4 +308,19 @@ function ici_test_workspace {
 
     ici_run "run_${name}_test" builder_run_tests "$extend" "$ws"
     builder_test_results "$extend" "$ws"
+}
+
+function ici_import_local_workspaces {
+    local workspaces=${2:3}; shift
+
+    IFS="+" read -r -a parts <<< "$workspaces"
+
+    for ws in "${ADDR[@]}"; do
+        if [ -d "$ws/src" ]; then
+            cp -R "$ws/src/." "$1"
+        fi
+        else
+            ici_error "'$ws' is not a valid workspace"
+        fi
+    done
 }
