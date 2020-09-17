@@ -314,6 +314,7 @@ function ici_import_local_workspaces {
     local workspaces=${2:3}; shift
 
     IFS="+" read -r -a parts <<< "$workspaces"
+    ls ~
 
     for ws in "${parts[@]}"; do
         if [ -d "~/$ws" ]; then
