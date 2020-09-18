@@ -258,6 +258,8 @@ function ici_setup_rosdep {
 function ici_exec_in_workspace {
     local extend=$1; shift
     local path=$1; shift
+    echo $ws
+    echo $extend
     ( { [ ! -e "$extend/setup.bash" ] || ici_source_setup "$extend"; } && cd "$path" && exec "$@")
 }
 
@@ -316,7 +318,7 @@ function ici_test_workspace {
 
 function ici_import_local_workspaces {
     local workspaces=${2:3}
-    wslist=""
+    wslist=( --base-paths )
 
     IFS="+" read -r -a parts <<< "$workspaces"
 
@@ -328,5 +330,5 @@ function ici_import_local_workspaces {
         fi
     done
 
-    bundle_args=( --base-paths $wslist)
+    bundle_args=$wslist
 }

@@ -36,6 +36,8 @@ function builder_run_build {
     elif [ "$jobs" -gt 1 ]; then
         opts+=(--executor parallel --parallel-workers "$jobs")
     fi
+    echo $ws
+    echo $extend
     ici_exec_in_workspace "$extend" "$ws" colcon build "${opts[@]}" "$@"
 }
 
