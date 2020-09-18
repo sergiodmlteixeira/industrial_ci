@@ -153,7 +153,7 @@ function run_source_tests {
     extend="$target_ws/install"
     if [ -n "$DOWNSTREAM_WORKSPACE" ]; then
         ici_with_ws "$downstream_ws" ici_build_workspace "downstream" "$extend" "$downstream_ws"
-        extend="$downstream_ws/install"
+        #extend="$downstream_ws/install"
 
         if [ "$NOT_TEST_DOWNSTREAM" != "true" ]; then
             ici_with_ws "$downstream_ws" ici_test_workspace "downstream" "$extend" "$downstream_ws"
