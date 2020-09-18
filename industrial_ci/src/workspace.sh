@@ -297,7 +297,7 @@ function ici_build_workspace {
     fi
 
     ici_run "setup_${name}_workspace" ici_prepare_sourcespace "$ws/src" "${sources[@]}"
-    if [ -z "$bundle_args" ]; then
+    if [ -z "$wslist" ]; then
         ici_run "install_${name}_dependencies" ici_install_dependencies "$extend" "$ROSDEP_SKIP_KEYS" "$ws/src"
     else
         args+=(--base-paths $wslist)
