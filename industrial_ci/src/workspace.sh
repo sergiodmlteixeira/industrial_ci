@@ -258,7 +258,6 @@ function ici_setup_rosdep {
 function ici_exec_in_workspace {
     local extend=$1; shift
     local path=$1; shift
-    echo $ws
     ( { [ ! -e "$extend/setup.bash" ] || ici_source_setup "$extend"; } && cd "$path" && exec "$@")
 }
 
@@ -285,8 +284,6 @@ function ici_build_workspace {
     local name=$1; shift
     local extend=$1; shift
     local ws=$1; shift
-
-    echo $ws
 
     local -a ws_sources
     ici_parse_env_array  ws_sources "${name^^}_WORKSPACE"
@@ -319,17 +316,17 @@ function ici_test_workspace {
 
 function ici_import_local_workspaces {
     local workspaces=${1:3}
-    wslist=( --base-paths )
+    local wslist=""
 
     IFS="+" read -r -a parts <<< "$workspaces"
 
     for workspace in "${parts[@]}"; do
         if [ -d ~/"$workspace" ]; then
-            wslist+=( ~/"$workspace")
+            wslist+="/root/$workspace "
         else
             ici_error "'$workspace' is not a valid workspace"
         fi
     done
 
-    bundle_args=$wslist
+    bundle_args=( --base-paths $wslist )
 }
