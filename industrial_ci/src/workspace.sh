@@ -314,11 +314,10 @@ function ici_import_local_workspaces {
     local workspaces=${2:3}
 
     IFS="+" read -r -a parts <<< "$workspaces"
-    ls ~
 
     for ws in "${parts[@]}"; do
         if [ -d ~/"$ws" ]; then
-            cp -R ~/$ws/src/. "$1"
+            cp -R ~/$ws/src/. $1/src
         else
             ici_error "'$ws' is not a valid workspace"
         fi
