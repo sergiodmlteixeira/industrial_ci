@@ -322,11 +322,12 @@ function ici_import_local_workspaces {
 
     for workspace in "${parts[@]}"; do
         if [ -d ~/"$workspace" ]; then
-            wslist+="/root/$workspace "
+            wslist=$wslist"/root/$workspace "
         else
             ici_error "'$workspace' is not a valid workspace"
         fi
     done
 
+    echo $wslist
     bundle_args=( --base-paths $wslist )
 }
