@@ -212,7 +212,7 @@ function ici_prepare_sourcespace {
             ici_error "source is empty string"
             ;;
         ws:*)
-            ici_import_local_workspaces "$sourcespace" "$source"
+            ici_import_local_workspaces "$source"
             ;;
         *)
             if [ -d "$basepath/$source" ]; then
@@ -318,16 +318,16 @@ function ici_test_workspace {
 }
 
 function ici_import_local_workspaces {
-    local workspaces=${2:3}
+    local workspaces=${1:3}
     wslist=( --base-paths )
 
     IFS="+" read -r -a parts <<< "$workspaces"
 
-    for ws in "${parts[@]}"; do
-        if [ -d ~/"$ws" ]; then
-            wslist+=( ~/"$ws")
+    for workspace in "${parts[@]}"; do
+        if [ -d ~/"$workspace" ]; then
+            wslist+=( ~/"$workspace")
         else
-            ici_error "'$ws' is not a valid workspace"
+            ici_error "'$workspace' is not a valid workspace"
         fi
     done
 
