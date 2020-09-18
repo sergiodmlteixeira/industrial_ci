@@ -302,6 +302,7 @@ function ici_build_workspace {
     else
         args+=$bundle_args
     fi
+    ws=~/bundle_ws
     ici_run "build_${name}_workspace" builder_run_build "$extend" "$ws" "${args[@]}"
 }
 
