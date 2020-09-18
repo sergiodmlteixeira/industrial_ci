@@ -300,7 +300,7 @@ function ici_build_workspace {
     if [ -z "$bundle_args" ]; then
         ici_run "install_${name}_dependencies" ici_install_dependencies "$extend" "$ROSDEP_SKIP_KEYS" "$ws/src"
     else
-        args+=$bundle_args
+        args+=(--base-paths $wslist)
     fi
     ici_run "build_${name}_workspace" builder_run_build "$extend" "$ws" "${args[@]}"
 }
@@ -316,7 +316,7 @@ function ici_test_workspace {
 
 function ici_import_local_workspaces {
     local workspaces=${1:3}
-    local wslist=""
+    wslist=""
 
     IFS="+" read -r -a parts <<< "$workspaces"
 
@@ -327,7 +327,4 @@ function ici_import_local_workspaces {
             ici_error "'$workspace' is not a valid workspace"
         fi
     done
-
-    echo $wslist
-    bundle_args=( --base-paths $wslist )
 }
