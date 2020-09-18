@@ -259,7 +259,6 @@ function ici_exec_in_workspace {
     local extend=$1; shift
     local path=$1; shift
     echo $ws
-    echo $extend
     ( { [ ! -e "$extend/setup.bash" ] || ici_source_setup "$extend"; } && cd "$path" && exec "$@")
 }
 
@@ -286,6 +285,8 @@ function ici_build_workspace {
     local name=$1; shift
     local extend=$1; shift
     local ws=$1; shift
+
+    echo $ws
 
     local -a ws_sources
     ici_parse_env_array  ws_sources "${name^^}_WORKSPACE"
