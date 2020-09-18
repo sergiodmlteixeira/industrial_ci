@@ -72,5 +72,9 @@ function bundle_setup {
 
 function bundle_workspace {
     local ws=$1; shift
-    ici_exec_in_workspace "$extend" "$ws" colcon bundle
+    if [ ! -z "$wslist" ]; then
+        ici_exec_in_workspace "$extend" "$ws" colcon bundle
+    else
+        ici_exec_in_workspace "$extend" "$ws" colcon bundle --base-paths $wslist
+    fi
 }
