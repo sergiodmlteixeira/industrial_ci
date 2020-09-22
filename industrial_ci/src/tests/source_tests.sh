@@ -160,7 +160,7 @@ function run_source_tests {
         fi
     fi
 
-    if [ "$GENERATE_BUNDLE" == "true" || "$TEST_WITH_ROBOMAKER" == "true"]; then
+    if [ "$GENERATE_BUNDLE" == "true" ] || [ "$TEST_WITH_ROBOMAKER" == "true" ]; then
         bundle_setup
         ici_with_ws "$bundle_ws" ici_build_workspace "bundle" "$extend" "$bundle_ws"
         ici_run "bundle_workspace" ici_with_ws "$bundle_ws" bundle_workspace "$bundle_ws"
