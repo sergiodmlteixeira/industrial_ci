@@ -160,10 +160,13 @@ function run_source_tests {
         fi
     fi
 
-    if [ "$TEST_WITH_ROBOMAKER" == "true" ]; then
-        ici_run "setup_aws" ici_setup_aws
+    if [ "$GENERATE_BUNDLE" == "true" || "$TEST_WITH_ROBOMAKER" == "true"]; then
+        bundle_setup
         ici_with_ws "$bundle_ws" ici_build_workspace "bundle" "$extend" "$bundle_ws"
         ici_run "bundle_workspace" ici_with_ws "$bundle_ws" bundle_workspace "$bundle_ws"
+    fi
+    if [ "$TEST_WITH_ROBOMAKER" == "true" ]; then
+        ici_run "setup_aws" ici_setup_aws
         ici_run "upload_bundle" ici_quiet ici_upload_bundle
         ici_run "run_robomaker_tests" ici_quiet ici_test_simulation
     fi

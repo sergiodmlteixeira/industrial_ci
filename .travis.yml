@@ -74,6 +74,9 @@ env:
     - ROS_DISTRO=melodic TARGET_WORKSPACE='industrial_ci/mockups/test_clang_tidy' CLANG_TIDY=pedantic
     - ROS_DISTRO=melodic TARGET_WORKSPACE='industrial_ci/mockups/test_clang_tidy' CLANG_TIDY=pedantic CLANG_TIDY_ARGS="-checks=modernize-use-nullptr" EXPECT_EXIT_CODE=1
 
+    # Robomaker
+    - ROS_DISTRO="melodic" BUNDLE_WORKSPACE="ws:target_ws" GENERATE_BUNDLE="true" BUILDER="colcon" ADDITIONAL_DEBS="curl unzip less python3-pip python3-apt" AFTER_SCRIPT='if [ ! -f /root/bundle_ws/bundle/output.tar ]; then exit 1; fi'
+
 matrix:
   allow_failures:
     - env: ROS_DISTRO=kinetic NOT_TEST_BUILD='true' NOT_TEST_INSTALL='true' POST_PROCESS='I_am_supposed_to_fail'
